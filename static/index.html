@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .product {
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        .product a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .product a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="search-container">
+        <h2>Product Search</h2>
+        <input type="text" id="searchQuery" placeholder="Search for products...">
+        <button onclick="search()">Search</button>
+
+        <div class="results" id="results"></div>
+    </div>
+
+    <script>
+        // Function to send search request to the API
+        async function search() {
+            const query = document.getElementById("searchQuery").value;
+            const resultsDiv = document.getElementById("results");
+
+            // Clear previous results
+            resultsDiv.innerHTML = '';
+
+            // Send the query to the FastAPI backend
+            const response = await fetch(`/search/?query=${encodeURIComponent(query)}`);
+            const data = await response.json();
+
+            // Display results with all product details
+            data.results.forEach((result, index) => {
+                const productDiv = document.createElement("div");
+                productDiv.classList.add("product");
+
+                // Construct the product result with all details
+                productDiv.innerHTML = `
+                    <strong>Product ${index + 1}:</strong> 
+                    <a href="${result.product_url}" target="_blank">${result.product_title}</a><br>
+                    Price: ${result.product_price}<br>
+                    Rating: ${result.rating} (${result.reviews} reviews)<br>
+                    Manufacturer: ${result.manufacturer}<br>
+                    Similarity Score: ${result.similarity_score}`;
+
+                resultsDiv.appendChild(productDiv);
+            });
+        }
+    </script>
+
+</body>
+</html>
