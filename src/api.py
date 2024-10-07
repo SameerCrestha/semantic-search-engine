@@ -11,13 +11,13 @@ from .ranking import rank_documents
 app = FastAPI()
 
 # Define the absolute path to the static folder
-static_folder_path = os.path.abspath("../static")
+static_folder_path = os.path.abspath("static")
 
 # Mount the static files directory
 app.mount("/static", StaticFiles(directory=static_folder_path), name="static")
 
 # Load CSV data 
-df = pd.read_csv("../data/processed_data.csv")  
+df = pd.read_csv("data/processed_data.csv")  
 
 # Extract the necessary columns
 product_titles = df['Product Name'].tolist()
