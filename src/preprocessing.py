@@ -1,3 +1,6 @@
+import nltk
+# Add the local nltk_data folder to the NLTK path
+nltk.data.path.append('nltk_data')
 import re
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
