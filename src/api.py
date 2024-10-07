@@ -7,7 +7,8 @@ from .preprocessing import preprocess
 from .vectorization import minilm_vectorization
 from .similarity_search import cosine_similarity_search
 from .ranking import rank_documents
-
+from .utils import generate_and_save_embeddings
+import numpy as np
 app = FastAPI()
 
 # Define the absolute path to the static folder
@@ -28,8 +29,12 @@ ratings = df['Rating'].tolist()
 reviews = df['Number of reviews'].tolist()
 manufacturers = df['Manufacturer'].tolist()
 
-# Vectorize the processed_text column for similarity search
-document_embeddings = minilm_vectorization(preprocessed_texts)
+# Load or generate document embeddings
+if os.path.exists('data/document_embeddings.npy'):
+    document_embeddings = np.load('data/document_embeddings.npy')
+    print("Document embeddings loaded from file.")
+else:
+    document_embeddings =generate_and_save_embeddings(preprocessed_texts)
 
 @app.get("/", response_class=HTMLResponse)
 async def read_index():
