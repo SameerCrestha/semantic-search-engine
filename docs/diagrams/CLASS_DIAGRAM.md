@@ -7,45 +7,45 @@ classDiagram
     class FastAPIApp {
         +FastAPI app
         +DataFrame df
-        +list product_titles
-        +list preprocessed_texts
-        +list product_urls
-        +list product_prices
-        +list ratings
-        +list reviews
-        +list manufacturers
+        +list~string~ product_titles
+        +list~string~ preprocessed_texts
+        +list~string~ product_urls
+        +list~string~ product_prices
+        +list~float~ ratings
+        +list~int~ reviews
+        +list~string~ manufacturers
         +ndarray document_embeddings
         +read_index() HTMLResponse
-        +search(query: str) dict
+        +search(query string) dict
     }
     
     class Preprocessor {
         -WordNetLemmatizer lemmatizer
-        -set stop_words
-        +preprocess(text: str) str
+        -set~string~ stop_words
+        +preprocess(text string) string
     }
     
     class Vectorizer {
-        +tfidf_vectorization(corpus: list) tuple
-        +minilm_vectorization(corpus: list) ndarray
+        +tfidf_vectorization(corpus list) tuple
+        +minilm_vectorization(corpus list) ndarray
     }
     
     class SentenceTransformer {
-        -model: SentenceTransformer
-        +encode(texts: list) ndarray
+        -model SentenceTransformer
+        +encode(texts list) ndarray
     }
     
     class SimilaritySearch {
-        +cosine_similarity_search(query_embedding, document_embeddings) ndarray
-        +faiss_search(query_embedding, document_embeddings) tuple
+        +cosine_similarity_search(query_embedding ndarray, document_embeddings ndarray) ndarray
+        +faiss_search(query_embedding ndarray, document_embeddings ndarray) tuple
     }
     
     class Ranker {
-        +rank_documents(similarity_scores, k: int) ndarray
+        +rank_documents(similarity_scores ndarray, k int) ndarray
     }
     
     class Utils {
-        +generate_and_save_embeddings(preprocessed_texts) ndarray
+        +generate_and_save_embeddings(preprocessed_texts list) ndarray
     }
     
     class NLTKComponents {
@@ -68,18 +68,18 @@ classDiagram
         +search()
     }
     
-    FastAPIApp --> Preprocessor: uses
-    FastAPIApp --> Vectorizer: uses
-    FastAPIApp --> SimilaritySearch: uses
-    FastAPIApp --> Ranker: uses
-    FastAPIApp --> Utils: uses
+    FastAPIApp --> Preprocessor : uses
+    FastAPIApp --> Vectorizer : uses
+    FastAPIApp --> SimilaritySearch : uses
+    FastAPIApp --> Ranker : uses
+    FastAPIApp --> Utils : uses
     
-    Preprocessor --> NLTKComponents: depends on
-    Vectorizer --> SentenceTransformer: uses
-    Vectorizer --> SklearnComponents: uses
-    SimilaritySearch --> SklearnComponents: uses
-    SimilaritySearch --> FAISSIndex: uses
-    Utils --> Vectorizer: uses
+    Preprocessor --> NLTKComponents : depends on
+    Vectorizer --> SentenceTransformer : uses
+    Vectorizer --> SklearnComponents : uses
+    SimilaritySearch --> SklearnComponents : uses
+    SimilaritySearch --> FAISSIndex : uses
+    Utils --> Vectorizer : uses
     
     note for FastAPIApp "Main application entry point\nHandles HTTP requests and\norchestrates search workflow"
     note for Preprocessor "Text preprocessing pipeline\nNormalizes and cleans text data"

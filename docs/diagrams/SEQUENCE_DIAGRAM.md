@@ -12,7 +12,7 @@ sequenceDiagram
     participant Ranker
     participant Database as Document Store
     
-    User->>FastAPI: GET /search?query="laptop"
+    User->>FastAPI: GET /search?query=laptop
     FastAPI->>Database: Load document embeddings
     Database-->>FastAPI: Return document_embeddings.npy
     
