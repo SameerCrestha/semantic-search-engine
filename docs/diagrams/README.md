@@ -2,6 +2,10 @@
 
 This directory contains comprehensive UML diagrams that describe the flow and architecture of the Semantic Search Engine.
 
+## 📖 Documentation
+
+- **[System Overview](SYSTEM_OVERVIEW.md)** - Complete system documentation including architecture, flow, performance, and best practices
+
 ## Available Diagrams
 
 ### 1. [Sequence Diagram](SEQUENCE_DIAGRAM.md)
