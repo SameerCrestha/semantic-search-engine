@@ -65,3 +65,15 @@ In the application, cosine similarity is used to measure how similar two vectors
 - 1 indicates that the vectors are identical.
 - 0 means the vectors are orthogonal (no similarity).
 - -1 indicates that the vectors are opposite.
+
+## UML Diagrams
+
+Comprehensive UML diagrams are available to help understand the system architecture and workflow. These diagrams provide detailed visualization of the semantic search engine's structure and behavior.
+
+### Available Diagrams
+
+1. **[Sequence Diagram](docs/diagrams/SEQUENCE_DIAGRAM.md)** - Shows the step-by-step interaction between components during a search request
+2. **[Class Diagram](docs/diagrams/CLASS_DIAGRAM.md)** - Illustrates the structure of the system including classes, their relationships, and dependencies
+3. **[Activity Diagram](docs/diagrams/ACTIVITY_DIAGRAM.md)** - Depicts the complete workflow from initialization to returning search results
+
+All diagrams are created using Mermaid and are natively rendered on GitHub. Visit the [diagrams directory](docs/diagrams/) for detailed documentation.
